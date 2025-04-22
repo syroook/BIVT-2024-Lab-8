@@ -11,10 +11,10 @@ namespace Lab_8
         private string _output;
         private string _needToDelet;//последовательность
         public string Output => _output;
-        public Blue_2(string input, string del) : base(input)
+        public Blue_2(string input, string needToDelet) : base(input)
         {
             _output = string.Empty;
-            _needToDelet = del;
+            _needToDelet = needToDelet;
         }
         public override void Review()
         {
@@ -23,41 +23,41 @@ namespace Lab_8
                 _output = string.Empty;
                 return;
             }
-            string[] word = Input.Split(' ');
+            string[] temporaryWhileLess50 = Input.Split(' ');
             string res = "";
-            foreach (string w in word)
+            foreach (string word in temporaryWhileLess50)
             {
-                if (!w.Contains(_needToDelet))
+                if (!word.Contains(_needToDelet))
                 {
                     if (res.Length > 0)
                     {
-                        res += " " + w;
+                        res += " " + word;
                     }
                     else
                     {
-                        res += w;
+                        res += word;
                     }
                 }
                 else 
                 {
-                    if (w.Length > 0 && char.IsPunctuation(w[0]))
+                    if (word.Length > 0 && char.IsPunctuation(word[0]))
                     {
                         if (res.Length > 0)
                         {
-                            res += " " + w[0];
+                            res += " " + word[0];
                         }
                         else
                         {
-                            res += w[0];
+                            res += word[0];
                         }
                     }
-                    if (w.Length > 1 && char.IsPunctuation(w[w.Length - 2]))
+                    if (word.Length > 1 && char.IsPunctuation(word[word.Length - 2]))
                     {
-                        res += w[w.Length - 2];
+                        res += word[word.Length - 2];
                     }
-                    if (w.Length > 0 && char.IsPunctuation(w[w.Length - 1]))
+                    if (word.Length > 0 && char.IsPunctuation(word[word.Length - 1]))
                     {
-                        res += w[w.Length - 1];
+                        res += word[word.Length - 1];
                     }
                 }
                 _output = res.Trim();

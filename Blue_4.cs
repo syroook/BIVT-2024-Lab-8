@@ -14,40 +14,40 @@ namespace Lab_8
         {
             _output = 0;
         }
+        public override string ToString()
+        {
+            return $"{_output}";
+        }
         public override void Review()
         {
             if (string.IsNullOrEmpty(Input)) return;
             int current = 0;
-            bool digit = false; 
+            bool IsItDigit = false; 
             foreach (char d in Input)
             {
                 if (Char.IsDigit(d))
                 {
-                    if (!digit)
+                    if (!IsItDigit)
                     {
                         current = (int)d - '0';
-                        digit = true;
+                        IsItDigit = true;
                     }
                     else
                     {
                         current = current * 10 + (int)d - '0';
                     }
                 }
-                else if (!Char.IsDigit(d) && digit)
+                else if (!Char.IsDigit(d) && IsItDigit)
                 {
-                    digit = false;
+                    IsItDigit = false;
                     _output += current;
                     current = 0;
                 }
             }
-            if (digit)
+            if (IsItDigit)
             {
                 _output += current;
             }
-        }
-        public override string ToString()
-        {
-            return $"{_output}";
         }
     }
 }

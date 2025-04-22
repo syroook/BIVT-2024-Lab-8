@@ -14,6 +14,11 @@ namespace Lab_8
         {
             _output = new string[0];
         }
+        public override string ToString()
+        {
+            if (_output == null || _output.Length == 0) return null;
+            return string.Join(Environment.NewLine, _output);
+        }
         public override void Review()
         {
             if (string.IsNullOrEmpty(Input))
@@ -21,41 +26,37 @@ namespace Lab_8
                 _output = new string[0];
                 return;
             }
-            string[] word = Input.Split(' '); 
-            string[] result = new string[word.Length]; 
-            string time = "";
+            string[] devide = Input.Split(' '); 
+            string[] res = new string[devide.Length]; 
+            string temporaryWhileLess50 = "";
             int count = 0;
-            for (int i = 0; i < word.Length; i++)
+            for (int i = 0; i < devide.Length; i++)
             {
-                string w = word[i];
-                if (time.Length + w.Length + 1 <= 50)
+                string w = devide[i];
+                if (temporaryWhileLess50.Length + w.Length + 1 <= 50)
                 {
-                    if (time.Length > 0)
+                    if (temporaryWhileLess50.Length > 0)
                     {
-                        time += " " + w;
+                        temporaryWhileLess50 += " " + w;
                     }
                     else
                     {
-                        time += w;
+                        temporaryWhileLess50 += w;
                     }
                 }
                 else 
                 {
-                    result[count] = time;
+                    res[count] = temporaryWhileLess50;
                     count++;
-                    time = w;
+                    temporaryWhileLess50 = w;
                 }
             }
-            if (!string.IsNullOrEmpty(time))
+            if (!string.IsNullOrEmpty(temporaryWhileLess50))
             {
-                result[count++] = time; 
+                res[count++] = temporaryWhileLess50; 
             }
-            _output = result;
+            _output = res;
         }
-        public override string ToString()
-        {
-            if (_output == null || _output.Length == 0) return null;
-            return string.Join(Environment.NewLine, _output); 
-        }
+        
     }
 }
