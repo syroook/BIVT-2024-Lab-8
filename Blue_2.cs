@@ -9,27 +9,28 @@ namespace Lab_8
     public class Blue_2 : Blue
     {
         private string _output;
-        private string _needToDelet;//последовательность
+        private string _needToDelete;
         public string Output => _output;
-        public Blue_2(string input, string needToDelet) : base(input)
+        public Blue_2(string input, string needToDelete) : base(input)
         {
-            _output = string.Empty;
-            _needToDelet = needToDelet;
+            _output = null;
+            _needToDelete = needToDelete;
         }
         public override void Review()
         {
-            if (string.IsNullOrEmpty(_needToDelet) || string.IsNullOrEmpty(Input))
+            //лишние пробелы
+            if (string.IsNullOrEmpty(_needToDelete) || string.IsNullOrEmpty(Input))
             {
-                _output = string.Empty;
+                _output = null;
                 return;
             }
-            string[] temporaryWhileLess50 = Input.Split(' ');
+            string[] SplitEachWhiteSpace = Input.Split(' ');
             string res = "";
-            foreach (string word in temporaryWhileLess50)
+            foreach (string word in SplitEachWhiteSpace)
             {
-                if (!word.Contains(_needToDelet))
+                if (!word.Contains(_needToDelete)) //without
                 {
-                    if (res.Length > 0)
+                    if (res.Length > 0) //not empty
                     {
                         res += " " + word;
                     }
@@ -38,13 +39,13 @@ namespace Lab_8
                         res += word;
                     }
                 }
-                else 
+                else
                 {
-                    if (word.Length > 0 && char.IsPunctuation(word[0]))
+                    if (word.Length > 0 && char.IsPunctuation(word[0])) // -
                     {
-                        if (res.Length > 0)
+                        if (res.Length > 0) //not empty
                         {
-                            res += " " + word[0];
+                            res += " " + word[0]; 
                         }
                         else
                         {
@@ -53,6 +54,7 @@ namespace Lab_8
                     }
                     if (word.Length > 1 && char.IsPunctuation(word[word.Length - 2]))
                     {
+                        // word,,
                         res += word[word.Length - 2];
                     }
                     if (word.Length > 0 && char.IsPunctuation(word[word.Length - 1]))
@@ -60,12 +62,14 @@ namespace Lab_8
                         res += word[word.Length - 1];
                     }
                 }
-                _output = res.Trim();
+                _output = res.Trim(); //delete whitespace
             }
+
+
         }
         public override string ToString()
         {
-            if (string.IsNullOrEmpty(_output)) return string.Empty;
+            if (string.IsNullOrEmpty(_output)) return null;
             return _output;
         }
     }

@@ -8,7 +8,7 @@ namespace Lab_8
 {
     public class Blue_3 : Blue
     {
-        private (char, double)[] _output; 
+        private (char, double)[] _output; //массив кортежей
         public (char, double)[] Output => _output;
         public Blue_3(string input) : base(input)
         {
@@ -17,35 +17,36 @@ namespace Lab_8
         public override string ToString()
         {
             if (_output == null) return null;
-            return string.Join(Environment.NewLine, _output.Select(p => $"{p.Item1} - {p.Item2:F4}"));
+            return string.Join(Environment.NewLine, _output.Select(cortege => $"{cortege.Item1} - {cortege.Item2:F4}"));
         }
 
         public override void Review()
         {
             if (string.IsNullOrEmpty(Input)) return;
-            string[] temporaryWhileLess50 = Input.Split(' ', '.', '!', '?', ',', ':', '\"', ';', '–', '(', ')', '[', ']', '{', '}', '/');
+            string[] SplitEachPunctuation = Input.Split(' ', '.', '!', '?', ',', ':', '\"', ';', '–', '(', ')', '[', ']', '{', '}', '/');
             string res = "";
-            int cnt = 0;
-            if (temporaryWhileLess50.Length == 0) return;
-            foreach (string word in temporaryWhileLess50)
+            int countUniqueLetters = 0;
+            if (SplitEachPunctuation.Length == 0) return;
+
+            foreach (string word in SplitEachPunctuation)
             {
                 if (!string.IsNullOrEmpty(word))
                 {
-                    char first = word[0];
+                    char first = word[0]; 
                     if (char.IsLetter(first))
                     {
-                        res += char.ToLower(first);
+                        res += char.ToLower(first); //all letters
                     }
                 }
             }
             (char, double)[] letter = new (char, double)[res.Length];
             for (int i = 0; i < letter.Length; i++)
             {
-                letter[i] = ('\0', 0);
+                letter[i] = ('\0', 0); //null character
             }
             foreach (char l in res)
             {
-                bool WasFound = false;
+                bool WasFound = false; //unique ones
                 for (int i = 0; i < letter.Count(); i++)
                 {
                     if (letter[i].Item1 == l)
@@ -55,20 +56,20 @@ namespace Lab_8
                         break;
                     }
                 }
-                if (!WasFound)
+                if (!WasFound) //not found 
                 {
                     for (int j = 0; j < letter.Length; j++)
                     {
                         if (letter[j].Item1 == '\0')
                         {
                             letter[j] = (l, 1);
-                            cnt++;
+                            countUniqueLetters++;
                             break;
                         }
                     }
                 }
             }
-            var result = new (char, double)[cnt];
+            var result = new (char, double)[countUniqueLetters];
             int all = res.Count();
             int ind = 0;
             foreach (var item in letter)

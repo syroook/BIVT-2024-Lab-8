@@ -27,7 +27,7 @@ namespace Lab_8
             {
                 if (Char.IsDigit(d))
                 {
-                    if (!IsItDigit)
+                    if (!IsItDigit) //new number
                     {
                         current = (int)d - '0';
                         IsItDigit = true;
@@ -44,7 +44,7 @@ namespace Lab_8
                     current = 0;
                 }
             }
-            if (IsItDigit)
+            if (IsItDigit) //if last is number
             {
                 _output += current;
             }
